@@ -7,7 +7,7 @@ import static junit.framework.Assert.assertNotNull;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
-public class CommandLineTest {
+public class CommandTest {
    private CommandLine commandLine;
 
    @Before
