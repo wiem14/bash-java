@@ -1,4 +1,4 @@
-package com.hsp.shell.bin;
+package com.hsp.shell.executable;
 
 import com.hsp.shell.core.CommandLine;
 import com.hsp.shell.core.Executable;

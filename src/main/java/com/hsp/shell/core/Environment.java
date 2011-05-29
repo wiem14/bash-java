@@ -1,5 +1,7 @@
 package com.hsp.shell.core;
 
+import com.hsp.shell.core.exception.EnvironmentException;
+
 import java.util.Properties;
 
 

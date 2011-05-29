@@ -1,5 +1,6 @@
 package com.hsp.shell.core;
 
+import com.hsp.shell.core.exception.CommandNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

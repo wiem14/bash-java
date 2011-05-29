@@ -1,4 +1,4 @@
-package com.hsp.shell.core;
+package com.hsp.shell.core.exception;
 
 import com.hsp.shell.ShellException;
 
