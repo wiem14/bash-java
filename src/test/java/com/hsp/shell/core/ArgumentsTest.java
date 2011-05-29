@@ -34,16 +34,17 @@ public class ArgumentsTest {
       arguments.add("3");
 
       int counter = 1;
-      for (String arg : arguments.getArgs()) {
+      for (Argument arg : arguments.getArgs()) {
+         String argOption = arg.getOption();
          switch (counter++) {
             case 1:
-               assertThat("1", equalTo(arg));
+               assertThat(argOption, equalTo("1"));
                break;
             case 2:
-               assertThat("2", equalTo(arg));
+               assertThat(argOption, equalTo("2"));
                break;
             case 3:
-               assertThat("3", equalTo(arg));
+               assertThat(argOption, equalTo("3"));
                break;
          }
       }

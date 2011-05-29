@@ -44,7 +44,7 @@ public class EnvironmentTest {
    public void shouldBeAbleToAddNewProperty() {
       final int originalPropertyCount = environment.getProperties().size();
       environment.setProperty("foo", "bar");
-      assertThat(originalPropertyCount + 1, is(environment.getProperties().size()));
+      assertThat(environment.getProperties().size(), is(originalPropertyCount + 1));
    }
 
    @Test

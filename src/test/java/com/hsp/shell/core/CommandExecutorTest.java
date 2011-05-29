@@ -36,6 +36,6 @@ public class CommandExecutorTest {
       when(mockPath.locateExecutable("foobar")).thenReturn(mockExecutable);
       when(mockCommandLine.getCommand()).thenReturn("foobar");
 
-      assertThat(0, equalTo(executor.executeCommand(mockCommandLine, System.out)));
+      assertThat(executor.executeCommand(mockCommandLine, System.out), equalTo(0));
    }
 }
