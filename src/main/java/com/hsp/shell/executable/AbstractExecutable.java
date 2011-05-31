@@ -26,4 +26,12 @@ public abstract class AbstractExecutable implements Executable {
    public int execute(CommandLine commandLine, OutputStream out) {
       return executeCommand(commandLine, new PrintStream(out));
    }
+
+   protected boolean isOption(String str) {
+      return str.startsWith("-") || str.startsWith("--");
+   }
+
+   protected boolean isOption(String expected, String actual) {
+      return ("-" + expected).equals(actual) || ("--" + expected).equals(actual);
+   }
 }

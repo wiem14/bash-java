@@ -35,7 +35,7 @@ public class ArgumentsTest {
 
       int counter = 1;
       for (Argument arg : arguments.getArgs()) {
-         String argOption = arg.getOption();
+         String argOption = arg.getArgument();
          switch (counter++) {
             case 1:
                assertThat(argOption, equalTo("1"));

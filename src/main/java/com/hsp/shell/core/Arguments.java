@@ -14,7 +14,7 @@ public class Arguments {
    }
 
    public boolean add(String arg) {
-      return add(new Argument(arg, null));
+      return add(new Argument(arg));
    }
 
    public int size() {

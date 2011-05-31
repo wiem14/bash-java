@@ -6,7 +6,6 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsNull.nullValue;
 
 public class CommandParserTest {
    private CommandParser parser;
@@ -23,9 +22,23 @@ public class CommandParserTest {
       assertThat(commandLine.getCommand(), is("cd"));
    }
 
+   @Test
+   public void shouldTreatQuotedArgumentsAsASingleArgument() {
+      CommandLine commandLine = parser.parse("echo \"foo bar\"");
+      assertThat(commandLine, notNullValue());
+      assertThat(commandLine.getCommand(), is("echo"));
+
+      Arguments args = commandLine.getArguments();
+      assertThat(args, notNullValue());
+      assertThat(args.size(), is(1));
+
+      Argument arg0 = args.getArgs().get(0);
+      assertThat(arg0.getArgument(), is("foo bar"));
+   }
+
 
    @Test
-   public void shouldIngoreTrailingAndLeadingWhiteSpace() {
+   public void shouldIgnoreTrailingAndLeadingWhiteSpace() {
       CommandLine commandLine = parser.parse(" cd   ");
       assertThat(commandLine, notNullValue());
       assertThat(commandLine.getCommand(), is("cd"));
@@ -40,7 +53,7 @@ public class CommandParserTest {
       assertThat(args, notNullValue());
 
       Argument arg0 = args.getArgs().get(0);
-      assertThat(arg0.getOption(), is("arg1"));
+      assertThat(arg0.getArgument(), is("arg1"));
    }
 
    @Test
@@ -50,13 +63,11 @@ public class CommandParserTest {
       Arguments args = command.getArguments();
       assertThat(args, notNullValue());
 
-      Argument arg0 = args.getArgs().get(0);
-      assertThat(arg0.getOption(), is("-opt1"));
-      assertThat(arg0.getValue(), is("val1"));
+      assertThat(args.getArgs().get(0).getArgument(), is("-opt1"));
+      assertThat(args.getArgs().get(1).getArgument(), is("val1"));
 
-      arg0 = args.getArgs().get(1);
-      assertThat(arg0.getOption(), is("--opt2"));
-      assertThat(arg0.getValue(), is("val2"));
+      assertThat(args.getArgs().get(2).getArgument(), is("--opt2"));
+      assertThat(args.getArgs().get(3).getArgument(), is("val2"));
    }
 
    @Test
@@ -66,9 +77,8 @@ public class CommandParserTest {
       Arguments args = command.getArguments();
       assertThat(args, notNullValue());
 
-      Argument arg0 = args.getArgs().get(0);
-      assertThat(arg0.getOption(), is("--option"));
-      assertThat(arg0.getValue(), is("value"));
+      assertThat(args.getArgs().get(0).getArgument(), is("--option"));
+      assertThat(args.getArgs().get(1).getArgument(), is("value"));
    }
 
    @Test
@@ -78,15 +88,11 @@ public class CommandParserTest {
       Arguments args = command.getArguments();
       assertThat(args, notNullValue());
 
-      assertThat(args.size(), is(2));
+      assertThat(args.size(), is(3));
 
-      Argument arg = args.getArgs().get(0);
-      assertThat(arg.getOption(), is("--opt1"));
-      assertThat(arg.getValue(), nullValue());
-
-      arg = args.getArgs().get(1);
-      assertThat(arg.getOption(), is("--opt2"));
-      assertThat(arg.getValue(), is("val2"));
+      assertThat(args.getArgs().get(0).getArgument(), is("--opt1"));
+      assertThat(args.getArgs().get(1).getArgument(), is("--opt2"));
+      assertThat(args.getArgs().get(2).getArgument(), is("val2"));
    }
 
    @Test
@@ -96,14 +102,12 @@ public class CommandParserTest {
       Arguments args = command.getArguments();
       assertThat(args, notNullValue());
 
-      assertThat(args.size(), is(2));
+      assertThat(args.size(), is(4));
 
-      Argument arg = args.getArgs().get(0);
-      assertThat(arg.getOption(), is("--opt1"));
-      assertThat(arg.getValue(), is("val1"));
+      assertThat(args.getArgs().get(0).getArgument(), is("--opt1"));
+      assertThat(args.getArgs().get(1).getArgument(), is("val1"));
 
-      arg = args.getArgs().get(1);
-      assertThat(arg.getOption(), is("--opt2"));
-      assertThat(arg.getValue(), is("val2"));
+      assertThat(args.getArgs().get(2).getArgument(), is("--opt2"));
+      assertThat(args.getArgs().get(3).getArgument(), is("val2"));
    }
 }

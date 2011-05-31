@@ -2,20 +2,13 @@ package com.hsp.shell.core;
 
 public class Argument {
 
-   private String option;
-   private String value;
+   private String argument;
 
-   public String getOption() {
-      return option;
+   public Argument(String argument) {
+      this.argument = argument;
    }
 
-   public String getValue() {
-      return value;
-   }
-
-   public Argument(String option, String value) {
-
-      this.option = option;
-      this.value = value;
+   public String getArgument() {
+      return argument;
    }
 }
