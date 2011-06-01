@@ -1,9 +1,6 @@
 package com.hsp.shell;
 
-import com.hsp.shell.core.CommandExecutor;
-import com.hsp.shell.core.CommandLine;
-import com.hsp.shell.core.CommandParser;
-import com.hsp.shell.core.ExecutablePath;
+import com.hsp.shell.core.*;
 import com.hsp.shell.core.exception.CommandNotFoundException;
 
 import java.io.BufferedReader;
@@ -19,8 +16,10 @@ public final class Shell {
       PrintStream out = System.out;
 
       ExecutablePath executablePath = new ExecutablePath();
-      CommandParser parser = new CommandParser();
-      CommandExecutor executor = new CommandExecutor(executablePath);
+      Environment environment = new Environment();
+
+      CommandParser parser = new CommandParser(environment);
+      CommandExecutor executor = new CommandExecutor(executablePath, environment);
 
       Scanner scanner = new Scanner(new BufferedReader(new InputStreamReader(System.in)));
 

@@ -9,10 +9,12 @@ import static org.hamcrest.core.Is.is;
 
 public class CommandParserTest {
    private CommandParser parser;
+   private Environment environment;
 
    @Before
    public void setup() {
-      parser = new CommandParser();
+      environment = new Environment();
+      parser = new CommandParser(environment);
    }
 
    @Test
@@ -109,5 +111,35 @@ public class CommandParserTest {
 
       assertThat(args.getArgs().get(2).getArgument(), is("--opt2"));
       assertThat(args.getArgs().get(3).getArgument(), is("val2"));
+   }
+
+   @Test
+   public void shouldTranslateEnvironmentVariables() {
+      environment.setProperty("HOME", "foobar");
+      CommandLine command = parser.parse("echo $HOME");
+
+      Arguments args = command.getArguments();
+      assertThat(args.size(), is(1));
+      assertThat(args.getArgs().get(0).getArgument(), is("foobar"));
+   }
+
+   @Test
+   public void shouldTranslateEnvironmentVariableAtEndOfArgument() {
+      environment.setProperty("WORLD", "world");
+      CommandLine command = parser.parse("echo \"hello $WORLD\"");
+
+      Arguments args = command.getArguments();
+      assertThat(args.size(), is(1));
+      assertThat(args.getArgs().get(0).getArgument(), is("hello world"));
+   }
+
+   @Test
+   public void shouldTranslateEnvironmentVariableEmbeddedInMiddleOfArgument() {
+      environment.setProperty("WORLD", "world");
+      CommandLine command = parser.parse("echo \"hello $WORLD hello\"");
+
+      Arguments args = command.getArguments();
+      assertThat(args.size(), is(1));
+      assertThat(args.getArgs().get(0).getArgument(), is("hello world hello"));
    }
 }

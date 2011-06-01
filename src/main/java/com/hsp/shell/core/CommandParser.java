@@ -6,13 +6,33 @@ import java.util.Stack;
 
 public class CommandParser {
 
+   private static final String PROPERTY_CHAR = Environment.PROPERTY_CHAR;
+   private static final int PROPERTY_CHAR_LENGTH = PROPERTY_CHAR.length();
+
+   private Environment environment;
+
+   public CommandParser() {
+      this.environment = new Environment();
+   }
+
+   public CommandParser(Environment environment) {
+      this.environment = environment;
+   }
+
+   /**
+    * Crude command line parser which supports treating quoted strings as a single command.
+    * Does not support nested quotes.  Whitespace serves to delimit the command line and the first
+    * token is assumed to be the actual command, with all remaining tokens treated as arguments
+    *
+    * @param commandLineString the command line to parse.
+    * @return A populated command line.
+    */
    public CommandLine parse(String commandLineString) {
       CommandLine commandLine = new CommandLine();
       Arguments args = new Arguments();
       commandLine.setArguments(args);
 
-      Stack<String> argStack = populateStackWithArgs(commandLineString);
-
+      Stack<String> argStack = populateStackWithArgs(commandLineString.trim());
 
       boolean firstToken = true;
       while (!argStack.isEmpty()) {
@@ -20,30 +40,39 @@ public class CommandParser {
             commandLine.setCommand(argStack.pop());
             firstToken = false;
          } else {
-            args.add(argStack.pop());
-//            String value = null;
-//            if (isOption(option)) {
-//               if (!argStack.isEmpty()) {
-//                  if (!isOption(argStack.peek())) {
-//                     value = argStack.pop();
-//                  }
-//               }
-//            }
-//
-//            args.add(new Argument(option, value));
+            args.add(translateEnvironmentVariable(argStack.pop()));
          }
-
       }
 
       return commandLine;
    }
 
+   private String translateEnvironmentVariable(String arg) {
+      int propCharIndex = arg.indexOf(PROPERTY_CHAR);
+      if (propCharIndex >= 0) {
+
+         int endOfEnvVar = arg.indexOf(" ", propCharIndex);
+         if (endOfEnvVar <= 0) {
+            endOfEnvVar = arg.length();
+         }
+
+         String envVarProperty = arg.substring(propCharIndex + PROPERTY_CHAR_LENGTH, endOfEnvVar);
+         String envVarValue = environment.getProperty(envVarProperty, envVarProperty);
+
+         if (!envVarProperty.equals(envVarValue)) {
+            return arg.replace(PROPERTY_CHAR + envVarProperty, envVarValue);
+         }
+
+         // environment variable does not exist, just return the original arg...
+      }
+      return arg;
+   }
+
+
    private Stack<String> populateStackWithArgs(String commandLine) {
       List<String> args = new ArrayList<String>();
 
       StringBuilder argBuilder = new StringBuilder();
-
-      commandLine = commandLine.trim();
 
       int commandLineLength = commandLine.length();
       boolean startQuote = false;
@@ -86,10 +115,6 @@ public class CommandParser {
       }
 
       return argStack;
-   }
-
-   private boolean isOption(String option) {
-      return option.startsWith("-") || option.startsWith("--");
    }
 
 }

@@ -31,6 +31,11 @@ public class EnvironmentTest {
    }
 
    @Test
+   public void shouldReturnDefaultIfPropertyNotPresent() {
+      assertThat(environment.getProperty("loreumipsum", "foo"), is("foo"));
+   }
+
+   @Test
    public void shouldReturnNullForPropertyThatDoesNotExist() {
       assertThat(environment.getProperty("loreumipsum"), nullValue());
    }
