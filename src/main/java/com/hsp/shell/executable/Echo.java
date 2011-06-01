@@ -2,6 +2,7 @@ package com.hsp.shell.executable;
 
 import com.hsp.shell.core.Argument;
 import com.hsp.shell.core.CommandLine;
+import com.hsp.shell.core.Environment;
 
 import java.io.PrintStream;
 
@@ -13,7 +14,7 @@ public class Echo extends AbstractExecutable {
    }
 
    @Override
-   protected int executeCommand(CommandLine commandLine, PrintStream out) {
+   protected int executeCommand(CommandLine commandLine, PrintStream out, Environment environment) {
 
       StringBuilder builder = new StringBuilder();
 
@@ -38,6 +39,6 @@ public class Echo extends AbstractExecutable {
       out.printf("%s", builder.toString());
 
       out.flush();
-      return 0;
+      return SUCCESS;
    }
 }

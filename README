@@ -13,8 +13,7 @@ $> mvn clean package
 $> java -jar target/shell-1.0-SNAPSHOT.jar
 
 You should now have a shell with very basic command support (two commands actually), cls and echo.  Echo supports variable substitution.  Try running echo "$HOME" or echo "$java.version foo bar"
-Yeah, I know, big deal, but I'm setting up the plumbing and thinking about how things should work, so implementing basic commands is
-the best way for me to do this right now.
+Yeah, I know, big deal, but I'm setting up the plumbing and thinking about how things should work, so implementing basic commands is the best way for me to do this right now.
 
 
 

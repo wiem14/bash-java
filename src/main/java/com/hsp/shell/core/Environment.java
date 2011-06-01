@@ -9,8 +9,21 @@ public class Environment {
 
    public static final String PROPERTY_CHAR = "$";
 
+   /**
+    * The exit status of the last executed command
+    */
    public static final String EXIT_STATUS = "?";
+
+   /**
+    * The current working directory of the shell
+    */
+   public static final String CWD = "user.dir";
+
+   /**
+    * The currently logged in users home directory
+    */
    public static final String USER_HOME = "user.home";
+
 
    private Properties properties;
 
@@ -40,5 +53,6 @@ public class Environment {
 
    private void loadDefaults() {
       properties.put("HOME", properties.getProperty("user.home"));
+      properties.put("PWD", properties.getProperty("user.dir"));
    }
 }

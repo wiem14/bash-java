@@ -47,7 +47,7 @@ public class CommandExecutorTest {
    public void shouldSetExitStatusWhenCommandCompletes() {
       when(mockPath.locateExecutable("cd")).thenReturn(mockExecutable);
       when(mockCommandLine.getCommand()).thenReturn("cd");
-      when(mockExecutable.execute(mockCommandLine, System.out)).thenReturn(888);
+      when(mockExecutable.execute(mockCommandLine, System.out, mockEnvironment)).thenReturn(888);
 
       assertThat(executor.executeCommand(mockCommandLine, System.out), equalTo(888));
       verify(mockEnvironment).setProperty(Environment.EXIT_STATUS, String.valueOf(888));

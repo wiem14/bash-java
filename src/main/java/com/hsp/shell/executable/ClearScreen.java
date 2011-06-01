@@ -1,6 +1,7 @@
 package com.hsp.shell.executable;
 
 import com.hsp.shell.core.CommandLine;
+import com.hsp.shell.core.Environment;
 
 import java.io.PrintStream;
 
@@ -17,7 +18,7 @@ public class ClearScreen extends AbstractExecutable {
    }
 
    @Override
-   protected int executeCommand(CommandLine commandLine, PrintStream out) {
+   protected int executeCommand(CommandLine commandLine, PrintStream out, Environment environment) {
       out.println(ESC + "[2J");
       out.println(ESC + "[H");
 

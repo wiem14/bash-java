@@ -3,8 +3,11 @@ package com.hsp.shell.executable;
 import com.hsp.shell.core.Argument;
 import com.hsp.shell.core.Arguments;
 import com.hsp.shell.core.CommandLine;
+import com.hsp.shell.core.Environment;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -21,8 +24,13 @@ public class EchoTest {
    private PrintStream ps;
    private Arguments args;
 
+   @Mock
+   private Environment mockEnvironment;
+
    @Before
    public void setup() {
+      MockitoAnnotations.initMocks(this);
+
       commandLine = new CommandLine();
       args = new Arguments();
       commandLine.setArguments(args);
@@ -35,7 +43,7 @@ public class EchoTest {
    @Test
    public void shouldEchoSimpleString() {
       args.add("hello");
-      echo.execute(commandLine, ps);
+      echo.execute(commandLine, ps, mockEnvironment);
       assertThat(baos.toString(), is("hello\n"));
    }
 
@@ -43,21 +51,21 @@ public class EchoTest {
    public void shouldHonourIgnoreNewLine() {
       args.add(new Argument("-n"));
       args.add("hello");
-      echo.execute(commandLine, ps);
+      echo.execute(commandLine, ps, mockEnvironment);
       assertThat(baos.toString(), is("hello"));
    }
 
    @Test
    public void shouldRemoveQuotesWhenEchoing() {
       args.add("\"hello\"");
-      echo.execute(commandLine, ps);
+      echo.execute(commandLine, ps, mockEnvironment);
       assertThat(baos.toString(), is("hello\n"));
    }
 
    @Test
    public void shouldEchoMultipleWordsOnOneLine() {
       args.add("\"hello world\"");
-      echo.execute(commandLine, ps);
+      echo.execute(commandLine, ps, mockEnvironment);
       assertThat(baos.toString(), is("hello world\n"));
    }
 
@@ -65,7 +73,7 @@ public class EchoTest {
    public void shouldEchoMultipleWordsNotEnclosedInQuotesOnOneLine() {
       args.add("hello");
       args.add("world");
-      echo.execute(commandLine, ps);
+      echo.execute(commandLine, ps, mockEnvironment);
       assertThat(baos.toString(), is("hello world\n"));
    }
 
