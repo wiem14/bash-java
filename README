@@ -7,6 +7,15 @@ The project will be written entirely in Java and have no dependencies to other l
 I have begun this merely to keep my brain active while I look for work and as an educational tool for
 anyone interested in programming.
 
+You need maven to build this project.  To build run, execute this from your *nix command line
+
+$> mvn clean package
+$> java -jar target/shell-1.0-SNAPSHOT.jar
+
+You should now have a shell with very basic command support (two commands actually), cls and echo.  Echo supports variable substitution.  Try running echo "$HOME" or echo "$java.version foo bar"
+Yeah, I know, big deal, but I'm setting up the plumbing and thinking about how things should work, so implementing basic commands is
+the best way for me to do this right now.
+
 
 
 Things to do ... as of June 1st, 2011
