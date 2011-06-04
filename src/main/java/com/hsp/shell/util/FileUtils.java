@@ -93,7 +93,7 @@ public final class FileUtils {
       return newFile;
    }
 
-   public static final File getDir(String directoryName) throws FileNotFoundException {
+   public static File getDir(String directoryName) throws FileNotFoundException {
       File dir = new File(directoryName);
 
       if (dir.exists()) {

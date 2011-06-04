@@ -75,5 +75,8 @@ public class Touch extends AbstractExecutable {
       private boolean hasDir() {
          return dirName != null && ("".equals(dirName) == false);
       }
+
+      private DirectoryAndFileName() {
+      }
    }
 }
