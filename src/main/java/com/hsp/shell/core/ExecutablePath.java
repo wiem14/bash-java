@@ -21,7 +21,7 @@ public class ExecutablePath {
    }
 
    public void registerExecutable(Executable executable) {
-      executables.put(executable.name(), executable);
+      executables.put(executable.getName(), executable);
    }
 
    public Executable locateExecutable(String name) {
@@ -95,4 +95,7 @@ public class ExecutablePath {
       return fileNames;
    }
 
+   public List<Executable> getAllRegisteredExecutables() {
+      return new ArrayList<Executable>(executables.values());
+   }
 }

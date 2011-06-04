@@ -12,12 +12,20 @@ You need maven to build this project.  To build and run, execute the following c
 $> mvn clean package
 $> java -jar target/shell-1.0-SNAPSHOT.jar
 
-You should now have a shell with very basic command support (two commands actually), cls and echo.  Echo supports variable substitution.  Try running echo "$HOME" or echo "$java.version foo bar"
+You should now have a shell with very basic command support.  To see a list of supported commands, type help at the command prompt,
+
+Commands as of 3rd June, 2011
+  touch
+  echo
+  pwd
+  exit
+  help
+
+Echo supports variable substitution.  Try running echo "$HOME" or echo "$java.version foo bar"
 Yeah, I know, big deal, but I'm setting up the plumbing and thinking about how things should work, so implementing basic commands is the best way for me to do this right now.
 
 
-
-Things to do ... as of June 1st, 2011
+Things to do ... as of June 3rd, 2011
 
 
 o Add proper prompt support (at a minimum, show the current working directory)

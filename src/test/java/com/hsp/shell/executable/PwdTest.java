@@ -19,7 +19,7 @@ public class PwdTest extends AbstractExecutableTestBase {
    public void testPrintsCurrentWorkingDirectory() {
       when(mockEnvironment.getProperty("user.dir")).thenReturn("foobar");
 
-      pwd.execute(commandLine, baos, mockEnvironment);
+      pwd.execute(commandLine, baos, context);
       assertThat(baos.toString(), is("foobar\n"));
    }
 

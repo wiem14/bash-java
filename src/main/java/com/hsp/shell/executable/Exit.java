@@ -1,7 +1,7 @@
 package com.hsp.shell.executable;
 
 import com.hsp.shell.core.CommandLine;
-import com.hsp.shell.core.Environment;
+import com.hsp.shell.core.ExecutionContext;
 import com.hsp.shell.core.exception.ExecutionResult;
 
 import java.io.PrintStream;
@@ -16,7 +16,7 @@ public class Exit extends AbstractExecutable {
    }
 
    @Override
-   protected ExecutionResult executeCommand(CommandLine commandLine, PrintStream out, Environment environment) {
+   protected ExecutionResult executeCommand(CommandLine commandLine, PrintStream out, ExecutionContext context) {
       return new ExecutionResult(0, true);
    }
 

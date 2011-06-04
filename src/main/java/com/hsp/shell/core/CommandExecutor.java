@@ -18,7 +18,9 @@ public class CommandExecutor {
    public ExecutionResult executeCommand(CommandLine commandLine, OutputStream out) {
       final Executable executable = path.locateExecutable(commandLine.getCommand());
 
-      ExecutionResult result = executable.execute(commandLine, out, environment);
+      ExecutionContext context = new ExecutionContext(environment, path);
+      ExecutionResult result = executable.execute(commandLine, out, context);
+
       environment.setProperty(Environment.EXIT_STATUS, String.valueOf(result.getStatusCode()));
 
       return result;

@@ -21,7 +21,7 @@ public class EchoTest extends AbstractExecutableTestBase {
    @Test
    public void shouldEchoSimpleString() {
       args.add("hello");
-      echo.execute(commandLine, ps, mockEnvironment);
+      echo.execute(commandLine, ps, null);
       assertThat(baos.toString(), is("hello\n"));
    }
 
@@ -29,21 +29,21 @@ public class EchoTest extends AbstractExecutableTestBase {
    public void shouldHonourIgnoreNewLine() {
       args.add(new Argument("-n"));
       args.add("hello");
-      echo.execute(commandLine, ps, mockEnvironment);
+      echo.execute(commandLine, ps, null);
       assertThat(baos.toString(), is("hello"));
    }
 
    @Test
    public void shouldRemoveQuotesWhenEchoing() {
       args.add("\"hello\"");
-      echo.execute(commandLine, ps, mockEnvironment);
+      echo.execute(commandLine, ps, null);
       assertThat(baos.toString(), is("hello\n"));
    }
 
    @Test
    public void shouldEchoMultipleWordsOnOneLine() {
       args.add("\"hello world\"");
-      echo.execute(commandLine, ps, mockEnvironment);
+      echo.execute(commandLine, ps, null);
       assertThat(baos.toString(), is("hello world\n"));
    }
 
@@ -51,7 +51,7 @@ public class EchoTest extends AbstractExecutableTestBase {
    public void shouldEchoMultipleWordsNotEnclosedInQuotesOnOneLine() {
       args.add("hello");
       args.add("world");
-      echo.execute(commandLine, ps, mockEnvironment);
+      echo.execute(commandLine, ps, null);
       assertThat(baos.toString(), is("hello world\n"));
    }
 

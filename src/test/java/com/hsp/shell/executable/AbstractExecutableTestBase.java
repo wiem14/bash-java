@@ -1,8 +1,6 @@
 package com.hsp.shell.executable;
 
-import com.hsp.shell.core.Arguments;
-import com.hsp.shell.core.CommandLine;
-import com.hsp.shell.core.Environment;
+import com.hsp.shell.core.*;
 import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -20,6 +18,10 @@ public abstract class AbstractExecutableTestBase {
    @Mock
    protected Environment mockEnvironment;
 
+   @Mock
+   protected ExecutablePath mockPath;
+
+   protected ExecutionContext context;
    protected ByteArrayOutputStream baos;
    protected PrintStream ps;
    protected CommandLine commandLine;
@@ -29,6 +31,8 @@ public abstract class AbstractExecutableTestBase {
    @Before
    public void abstractSetup() {
       MockitoAnnotations.initMocks(this);
+
+      context = new ExecutionContext(mockEnvironment, mockPath);
 
       baos = new ByteArrayOutputStream();
       ps = new PrintStream(baos);

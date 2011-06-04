@@ -3,6 +3,7 @@ package com.hsp.shell.executable;
 import com.hsp.shell.core.Arguments;
 import com.hsp.shell.core.CommandLine;
 import com.hsp.shell.core.Environment;
+import com.hsp.shell.core.ExecutionContext;
 import com.hsp.shell.core.exception.ExecutableException;
 import com.hsp.shell.core.exception.ExecutionResult;
 import com.hsp.shell.util.FileUtils;
@@ -20,13 +21,13 @@ public class Touch extends AbstractExecutable {
    }
 
    @Override
-   protected ExecutionResult executeCommand(CommandLine commandLine, PrintStream out, Environment environment) {
+   protected ExecutionResult executeCommand(CommandLine commandLine, PrintStream out, ExecutionContext context) {
       Arguments arguments = commandLine.getArguments();
 
       try {
          DirectoryAndFileName dirAndFileName = extractDirectoryAndFileName(arguments.get(0).getArgument());
 
-         File directory = getDirectoryForFile(dirAndFileName, environment);
+         File directory = getDirectoryForFile(dirAndFileName, context.getEnvironment());
          File touchedFile = FileUtils.leanientCreate(directory.getAbsolutePath(), dirAndFileName.fileName);
          touchedFile.setLastModified(System.currentTimeMillis());
 

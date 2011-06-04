@@ -3,7 +3,6 @@ package com.hsp.shell.executable;
 import com.hsp.shell.core.exception.ExecutionResult;
 import com.hsp.shell.util.FileUtils;
 import org.junit.Test;
-import org.mockito.MockitoAnnotations;
 
 import java.io.File;
 
@@ -19,8 +18,6 @@ public class TouchTest extends AbstractExecutableTestBase {
 
    @Override
    protected void setup() {
-      MockitoAnnotations.initMocks(this);
-
       currentDir = new File(System.getProperty("java.io.tmpdir"));
       touch = new Touch();
 
@@ -36,7 +33,7 @@ public class TouchTest extends AbstractExecutableTestBase {
       File theFile = new File(currentDir, testFileName);
       assertThat(theFile.exists(), is(false));
 
-      touch.executeCommand(commandLine, ps, mockEnvironment);
+      touch.executeCommand(commandLine, ps, context);
       assertThat(theFile.exists(), is(true));
    }
 
@@ -49,7 +46,7 @@ public class TouchTest extends AbstractExecutableTestBase {
       assertThat(touchedFile.exists(), is(false));
 
       args.add(fullFileName);
-      touch.executeCommand(commandLine, ps, mockEnvironment);
+      touch.executeCommand(commandLine, ps, context);
 
       assertThat(touchedFile.exists(), is(true));
    }
@@ -63,7 +60,7 @@ public class TouchTest extends AbstractExecutableTestBase {
 
       String bogusFileName = bogusDirectory + "loremipsum.txt";
       args.add(bogusFileName);
-      ExecutionResult result = touch.executeCommand(commandLine, ps, mockEnvironment);
+      ExecutionResult result = touch.executeCommand(commandLine, ps, context);
       assertThat(result.getStatusCode(), is(0));
 
       assertThat(baos.toString(), is("touch : " + bogusFileName + " : No such file or directory\n"));

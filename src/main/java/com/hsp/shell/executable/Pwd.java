@@ -2,6 +2,7 @@ package com.hsp.shell.executable;
 
 import com.hsp.shell.core.CommandLine;
 import com.hsp.shell.core.Environment;
+import com.hsp.shell.core.ExecutionContext;
 import com.hsp.shell.core.exception.ExecutionResult;
 
 import java.io.PrintStream;
@@ -16,8 +17,8 @@ public class Pwd extends AbstractExecutable {
    }
 
    @Override
-   protected ExecutionResult executeCommand(CommandLine commandLine, PrintStream out, Environment environment) {
-      out.printf("%s\n", environment.getProperty(Environment.CWD));
+   protected ExecutionResult executeCommand(CommandLine commandLine, PrintStream out, ExecutionContext context) {
+      out.printf("%s\n", context.getEnvironment().getProperty(Environment.CWD));
       return SUCCESS;
    }
 

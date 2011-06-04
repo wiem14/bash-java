@@ -1,8 +1,8 @@
 package com.hsp.shell.executable;
 
 import com.hsp.shell.core.CommandLine;
-import com.hsp.shell.core.Environment;
 import com.hsp.shell.core.Executable;
+import com.hsp.shell.core.ExecutionContext;
 import com.hsp.shell.core.exception.ExecutionResult;
 
 import java.io.OutputStream;
@@ -15,18 +15,18 @@ public abstract class AbstractExecutable implements Executable {
 
    private String executableName;
 
-   protected abstract ExecutionResult executeCommand(CommandLine commandLine, PrintStream out, Environment environment);
+   protected abstract ExecutionResult executeCommand(CommandLine commandLine, PrintStream out, ExecutionContext context);
 
    protected AbstractExecutable(String executableName) {
       this.executableName = executableName;
    }
 
-   public String name() {
+   public String getName() {
       return executableName;
    }
 
-   public ExecutionResult execute(CommandLine commandLine, OutputStream out, Environment environment) {
-      return executeCommand(commandLine, new PrintStream(out), environment);
+   public ExecutionResult execute(CommandLine commandLine, OutputStream out, ExecutionContext context) {
+      return executeCommand(commandLine, new PrintStream(out), context);
    }
 
    protected boolean isOption(String str) {

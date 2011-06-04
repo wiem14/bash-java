@@ -20,7 +20,7 @@ public class ExitTest extends AbstractExecutableTestBase {
 
    @Test
    public void shouldHaveExitBooleanAsTrueInExecutionResult() {
-      ExecutionResult result = exit.execute(commandLine, ps, mockEnvironment);
+      ExecutionResult result = exit.execute(commandLine, ps, null);
       assertThat(result.isExitShell(), is(true));
    }
 

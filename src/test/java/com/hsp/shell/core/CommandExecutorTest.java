@@ -6,14 +6,14 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.io.OutputStream;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/**
- *
- */
 public class CommandExecutorTest {
 
    private CommandExecutor executor;
@@ -33,6 +33,7 @@ public class CommandExecutorTest {
    @Before
    public void setup() {
       MockitoAnnotations.initMocks(this);
+
       executor = new CommandExecutor(mockPath, mockEnvironment);
    }
 
@@ -42,7 +43,7 @@ public class CommandExecutorTest {
 
       when(mockPath.locateExecutable("cd")).thenReturn(mockExecutable);
       when(mockCommandLine.getCommand()).thenReturn("cd");
-      when(mockExecutable.execute(mockCommandLine, System.out, mockEnvironment)).thenReturn(expectedResult);
+      when(mockExecutable.execute(isA(CommandLine.class), isA(OutputStream.class), isA(ExecutionContext.class))).thenReturn(expectedResult);
 
       assertThat(executor.executeCommand(mockCommandLine, System.out), equalTo(expectedResult));
       verify(mockEnvironment).setProperty(Environment.EXIT_STATUS, String.valueOf(888));

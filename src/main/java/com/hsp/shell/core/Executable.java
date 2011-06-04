@@ -7,9 +7,9 @@ import java.io.OutputStream;
 
 public interface Executable {
 
-   ExecutionResult execute(CommandLine commandLine, OutputStream out, Environment environment);
+   ExecutionResult execute(CommandLine commandLine, OutputStream out, ExecutionContext context);
 
-   String name();
+   String getName();
 
    String getHelp();
 }
