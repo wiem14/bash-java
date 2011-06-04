@@ -14,12 +14,6 @@ $> java -jar target/shell-1.0-SNAPSHOT.jar
 
 You should now have a shell with very basic command support.  To see a list of supported commands, type help at the command prompt,
 
-Commands as of 3rd June, 2011
-  touch
-  echo
-  pwd
-  exit
-  help
 
 Echo supports variable substitution.  Try running echo "$HOME" or echo "$java.version foo bar"
 Yeah, I know, big deal, but I'm setting up the plumbing and thinking about how things should work, so implementing basic commands is the best way for me to do this right now.
@@ -31,7 +25,7 @@ Things to do ... as of June 3rd, 2011
 o Add proper prompt support (at a minimum, show the current working directory)
 
 o More commands !
-   - ls
+   - ls (in progress)
    - cd
    - set
    - unset
