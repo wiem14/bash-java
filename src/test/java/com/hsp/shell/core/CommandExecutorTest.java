@@ -1,5 +1,6 @@
 package com.hsp.shell.core;
 
+import com.hsp.shell.core.exception.ExecutionResult;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -36,20 +37,14 @@ public class CommandExecutorTest {
    }
 
    @Test
-   public void executeShouldReturnZero() {
-      when(mockPath.locateExecutable("foobar")).thenReturn(mockExecutable);
-      when(mockCommandLine.getCommand()).thenReturn("foobar");
-
-      assertThat(executor.executeCommand(mockCommandLine, System.out), equalTo(0));
-   }
-
-   @Test
    public void shouldSetExitStatusWhenCommandCompletes() {
+      ExecutionResult expectedResult = new ExecutionResult(888);
+
       when(mockPath.locateExecutable("cd")).thenReturn(mockExecutable);
       when(mockCommandLine.getCommand()).thenReturn("cd");
-      when(mockExecutable.execute(mockCommandLine, System.out, mockEnvironment)).thenReturn(888);
+      when(mockExecutable.execute(mockCommandLine, System.out, mockEnvironment)).thenReturn(expectedResult);
 
-      assertThat(executor.executeCommand(mockCommandLine, System.out), equalTo(888));
+      assertThat(executor.executeCommand(mockCommandLine, System.out), equalTo(expectedResult));
       verify(mockEnvironment).setProperty(Environment.EXIT_STATUS, String.valueOf(888));
    }
 

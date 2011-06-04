@@ -2,6 +2,7 @@ package com.hsp.shell;
 
 import com.hsp.shell.core.*;
 import com.hsp.shell.core.exception.CommandNotFoundException;
+import com.hsp.shell.core.exception.ExecutionResult;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -28,7 +29,10 @@ public final class Shell {
          CommandLine commandLine = parser.parse(scanner.nextLine());
 
          try {
-            executor.executeCommand(commandLine, out);
+            ExecutionResult result = executor.executeCommand(commandLine, out);
+            if (result.isExitShell()) {
+               break;
+            }
          } catch (CommandNotFoundException e) {
             out.printf(" %s: command not found\n", e.getMessage());
          }

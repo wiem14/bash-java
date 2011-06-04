@@ -3,6 +3,7 @@ package com.hsp.shell.executable;
 import com.hsp.shell.core.CommandLine;
 import com.hsp.shell.core.Environment;
 import com.hsp.shell.core.Executable;
+import com.hsp.shell.core.exception.ExecutionResult;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -10,11 +11,11 @@ import java.io.PrintStream;
 
 public abstract class AbstractExecutable implements Executable {
 
-   protected static final int SUCCESS = 0;
+   protected static final ExecutionResult SUCCESS = new ExecutionResult(0);
 
    private String executableName;
 
-   protected abstract int executeCommand(CommandLine commandLine, PrintStream out, Environment environment);
+   protected abstract ExecutionResult executeCommand(CommandLine commandLine, PrintStream out, Environment environment);
 
    protected AbstractExecutable(String executableName) {
       this.executableName = executableName;
@@ -24,7 +25,7 @@ public abstract class AbstractExecutable implements Executable {
       return executableName;
    }
 
-   public int execute(CommandLine commandLine, OutputStream out, Environment environment) {
+   public ExecutionResult execute(CommandLine commandLine, OutputStream out, Environment environment) {
       return executeCommand(commandLine, new PrintStream(out), environment);
    }
 

@@ -68,12 +68,16 @@ public class ExecutablePath {
 
    private boolean isExecutable(Class<?> clazz) {
       int modifiers = clazz.getModifiers();
-      if (Modifier.isAbstract(modifiers) || Modifier.isInterface(modifiers) || Modifier.isStatic(modifiers)) {
+      if (isNonInstantiable(modifiers)) {
          return false;
       }
 
       // We have a non abstract class, now let's see whether we implement the Executable interface
       return Executable.class.isAssignableFrom(clazz);
+   }
+
+   private boolean isNonInstantiable(int modifiers) {
+      return Modifier.isAbstract(modifiers) || Modifier.isInterface(modifiers) || Modifier.isStatic(modifiers);
    }
 
    private boolean isClassFile(String fileName) {

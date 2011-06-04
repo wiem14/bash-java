@@ -7,21 +7,20 @@ import com.hsp.shell.core.exception.ExecutionResult;
 import java.io.PrintStream;
 
 /**
- * Prints the current working directory
+ * @author georgepapas
  */
-public class Pwd extends AbstractExecutable {
+public class Exit extends AbstractExecutable {
 
-   public Pwd() {
-      super("pwd");
+   public Exit() {
+      super("exit");
    }
 
    @Override
    protected ExecutionResult executeCommand(CommandLine commandLine, PrintStream out, Environment environment) {
-      out.printf("%s\n", environment.getProperty(Environment.CWD));
-      return SUCCESS;
+      return new ExecutionResult(0, true);
    }
 
    public String getHelp() {
-      return "return the working directory name";
+      return "exits the current shell";
    }
 }

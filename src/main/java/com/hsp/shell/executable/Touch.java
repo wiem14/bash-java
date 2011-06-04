@@ -4,6 +4,7 @@ import com.hsp.shell.core.Arguments;
 import com.hsp.shell.core.CommandLine;
 import com.hsp.shell.core.Environment;
 import com.hsp.shell.core.exception.ExecutableException;
+import com.hsp.shell.core.exception.ExecutionResult;
 import com.hsp.shell.util.FileUtils;
 
 import java.io.File;
@@ -19,7 +20,7 @@ public class Touch extends AbstractExecutable {
    }
 
    @Override
-   protected int executeCommand(CommandLine commandLine, PrintStream out, Environment environment) {
+   protected ExecutionResult executeCommand(CommandLine commandLine, PrintStream out, Environment environment) {
       Arguments arguments = commandLine.getArguments();
 
       try {
@@ -35,7 +36,7 @@ public class Touch extends AbstractExecutable {
       catch (IOException e) {
          throw new ExecutableException("Could not create requested file", e);
       }
-      return 0;
+      return SUCCESS;
    }
 
    private File getDirectoryForFile(DirectoryAndFileName dirAndFileName, Environment environment) throws FileNotFoundException {
