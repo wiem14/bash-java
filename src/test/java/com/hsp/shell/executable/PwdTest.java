@@ -1,42 +1,26 @@
 package com.hsp.shell.executable;
 
-import com.hsp.shell.core.CommandLine;
-import com.hsp.shell.core.Environment;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.Mockito.when;
 
-public class PwdTest {
-   private ByteArrayOutputStream baos;
-   private PrintStream ps;
+public class PwdTest extends AbstractExecutableTestBase {
 
-   @Mock
-   private CommandLine mockCommandLine;
+   private Pwd pwd;
 
-   @Mock
-   private Environment env;
-
-   @Before
-   public void setup() {
-      MockitoAnnotations.initMocks(this);
-
-      baos = new ByteArrayOutputStream();
-      ps = new PrintStream(baos);
-      env = new Environment();
+   @Override
+   protected void setup() {
+      pwd = new Pwd();
    }
 
    @Test
    public void testPrintsCurrentWorkingDirectory() {
-      System.setProperty("user.dir", "foobar");
+      when(mockEnvironment.getProperty("user.dir")).thenReturn("foobar");
 
-      new Pwd().execute(mockCommandLine, baos, env);
+      pwd.execute(commandLine, baos, mockEnvironment);
       assertThat(baos.toString(), is("foobar\n"));
    }
+
 }

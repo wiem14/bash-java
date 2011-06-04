@@ -3,6 +3,7 @@ package com.hsp.shell.util;
 import com.hsp.shell.ShellException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import java.util.jar.JarFile;
 
 
 public final class FileUtils {
+
+   public static final String FILE_SEPARATOR = System.getProperty("file.separator");
 
    public static List<String> getFileNamesFromUrl(URL url) {
       List<String> fileNames = new ArrayList<String>();
@@ -69,5 +72,33 @@ public final class FileUtils {
 
 
    private FileUtils() {
+   }
+
+   /**
+    * Creates the specified file, or returns the existing file in the case the file already exists
+    *
+    * @param directoryName the directory in which the file will be created
+    * @param newFileName   the name of the file to create.
+    * @return file specified by the directory and file name
+    */
+   public static File leanientCreate(String directoryName, String newFileName) throws IOException {
+      File directory = new File(directoryName);
+      if (!directory.exists()) {
+         directory.mkdirs();
+      }
+
+      File newFile = new File(directory, newFileName);
+      newFile.createNewFile();
+
+      return newFile;
+   }
+
+   public static final File getDir(String directoryName) throws FileNotFoundException {
+      File dir = new File(directoryName);
+
+      if (dir.exists()) {
+         return dir;
+      }
+      throw new FileNotFoundException(dir.getAbsolutePath());
    }
 }

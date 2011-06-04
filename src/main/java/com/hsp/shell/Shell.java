@@ -28,7 +28,7 @@ public final class Shell {
          CommandLine commandLine = parser.parse(scanner.nextLine());
 
          try {
-            executor.executeCommand(commandLine, System.out);
+            executor.executeCommand(commandLine, out);
          } catch (CommandNotFoundException e) {
             out.printf(" %s: command not found\n", e.getMessage());
          }

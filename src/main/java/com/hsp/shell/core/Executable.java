@@ -8,4 +8,6 @@ public interface Executable {
    int execute(CommandLine commandLine, OutputStream out, Environment environment);
 
    String name();
+
+   String getHelp();
 }

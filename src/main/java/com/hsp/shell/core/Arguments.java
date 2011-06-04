@@ -1,10 +1,11 @@
 package com.hsp.shell.core;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Arguments {
 
-   private Set<Argument> args = new LinkedHashSet<Argument>();
+   private List<Argument> args = new ArrayList<Argument>();
 
    public boolean add(Argument argument) {
       int count = args.size();
@@ -21,14 +22,19 @@ public class Arguments {
       return args.size();
    }
 
+   public Argument get(int index) {
+      return args.get(index);
+   }
+
    public List<Argument> getArgs() {
-      List<Argument> flattenedArgs = new ArrayList<Argument>();
-
-      for (Iterator<Argument> argIter = args.iterator(); argIter.hasNext();) {
-         flattenedArgs.add(argIter.next());
-      }
-
-      return flattenedArgs;
+      return new ArrayList<Argument>(args);
+//      List<Argument> flattenedArgs = new ArrayList<Argument>();
+//
+//      for (Iterator<Argument> argIter = args.iterator(); argIter.hasNext();) {
+//         flattenedArgs.add(argIter.next());
+//      }
+//
+//      return flattenedArgs;
    }
 
 

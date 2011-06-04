@@ -41,4 +41,8 @@ public class Echo extends AbstractExecutable {
       out.flush();
       return SUCCESS;
    }
+
+   public String getHelp() {
+      return "write arguments to the standard output";
+   }
 }

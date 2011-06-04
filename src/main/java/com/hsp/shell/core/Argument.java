@@ -11,4 +11,9 @@ public class Argument {
    public String getArgument() {
       return argument;
    }
+
+   @Override
+   public String toString() {
+      return argument;
+   }
 }

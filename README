@@ -7,7 +7,7 @@ The project will be written entirely in Java and have no dependencies to other l
 I have begun this merely to keep my brain active while I look for work and as an educational tool for
 anyone interested in programming.
 
-You need maven to build this project.  To build run, execute this from your *nix command line
+You need maven to build this project.  To build and run, execute the following commands from your *nix command line
 
 $> mvn clean package
 $> java -jar target/shell-1.0-SNAPSHOT.jar
@@ -27,10 +27,10 @@ o More commands !
    - cd
    - set
    - unset
-   - touch
    - mkdir
    - rmdir
    - rm
+   - pushd/popd
    - e.t.c
 
 o Execute commands in background thread using Executor if command ends in &

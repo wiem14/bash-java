@@ -1,43 +1,21 @@
 package com.hsp.shell.executable;
 
 import com.hsp.shell.core.Argument;
-import com.hsp.shell.core.Arguments;
-import com.hsp.shell.core.CommandLine;
-import com.hsp.shell.core.Environment;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 
-public class EchoTest {
+public class EchoTest extends AbstractExecutableTestBase {
 
    private Echo echo;
-   private CommandLine commandLine;
-   private ByteArrayOutputStream baos;
-   private PrintStream ps;
-   private Arguments args;
 
-   @Mock
-   private Environment mockEnvironment;
-
-   @Before
-   public void setup() {
+   @Override
+   protected void setup() {
       MockitoAnnotations.initMocks(this);
-
-      commandLine = new CommandLine();
-      args = new Arguments();
-      commandLine.setArguments(args);
-
       echo = new Echo();
-      baos = new ByteArrayOutputStream();
-      ps = new PrintStream(baos);
    }
 
    @Test

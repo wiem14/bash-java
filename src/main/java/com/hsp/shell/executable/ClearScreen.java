@@ -10,11 +10,11 @@ public class ClearScreen extends AbstractExecutable {
    private static final char ESC = 27;
 
    public ClearScreen() {
-      super("cls");
+      super("clear");
    }
 
-   private String getHelpString() {
-      return "cls - clears the terminal and moves the cursor to the top left hand corner just after the prompt";
+   public String getHelp() {
+      return "clears the terminal and moves the cursor to the top left hand corner just after the prompt";
    }
 
    @Override

@@ -19,4 +19,8 @@ public class Pwd extends AbstractExecutable {
       out.printf("%s\n", environment.getProperty(Environment.CWD));
       return SUCCESS;
    }
+
+   public String getHelp() {
+      return "return the working directory name";
+   }
 }
