@@ -1,8 +1,10 @@
 package com.hsp.shell.core;
 
+import com.hsp.shell.ShellException;
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.Assert.fail;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -25,6 +27,22 @@ public class ArgumentsTest {
       assertThat(arguments.size(), is(0));
       arguments.add("foo");
       assertThat(arguments.size(), is(1));
+   }
+
+   @Test
+   public void shouldReturnLastArgument() {
+      arguments.add("foo");
+      assertThat(arguments.getLast().getArgument(), is("foo"));
+   }
+
+   @Test
+   public void shouldThrowShellExceptionIfNoArgumentsPresent() {
+      try {
+         arguments.getLast();
+         fail("Should have thrown exception");
+      } catch (ShellException e) {
+         ;
+      }
    }
 
    @Test

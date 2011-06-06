@@ -33,7 +33,7 @@ public class Help extends AbstractExecutable {
       out.printf("\n");
 
       for (Executable executable : execs) {
-         out.printf("%s\t - %s\n", executable.getName(), executable.getHelp());
+         out.printf("%s - %s\n", executable.getName(), executable.getHelp());
       }
 
       out.printf("\n");

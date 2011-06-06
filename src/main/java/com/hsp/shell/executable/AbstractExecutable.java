@@ -12,6 +12,7 @@ import java.io.PrintStream;
 public abstract class AbstractExecutable implements Executable {
 
    protected static final ExecutionResult SUCCESS = new ExecutionResult(0);
+   protected static final ExecutionResult FAILURE = new ExecutionResult(1);
 
    private String executableName;
 

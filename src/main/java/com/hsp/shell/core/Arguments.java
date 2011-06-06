@@ -1,5 +1,7 @@
 package com.hsp.shell.core;
 
+import com.hsp.shell.ShellException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,14 +30,16 @@ public class Arguments {
 
    public List<Argument> getArgs() {
       return new ArrayList<Argument>(args);
-//      List<Argument> flattenedArgs = new ArrayList<Argument>();
-//
-//      for (Iterator<Argument> argIter = args.iterator(); argIter.hasNext();) {
-//         flattenedArgs.add(argIter.next());
-//      }
-//
-//      return flattenedArgs;
    }
 
 
+   public Argument getLast() {
+      int argCount = args.size();
+
+      if (argCount > 0) {
+         return args.get(argCount - 1);
+      }
+
+      throw new ShellException("No arguments present");
+   }
 }
